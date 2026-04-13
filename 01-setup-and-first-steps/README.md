@@ -276,9 +276,9 @@ Plan mode helps you create a step-by-step plan before writing any code. Use the 
 
 > 💡 **Tip**: **Shift+Tab** cycles between modes: Interactive → Plan → Autopilot. Press it anytime during an interactive session to switch modes without typing a command.
 
-> 💡 **Startup shortcut**: You can launch the CLI directly in Plan mode from your terminal using the `--plan` flag — great when you already know what you want to plan:
+> 💡 **Startup shortcut**: You can launch the CLI directly in Plan mode from your terminal using the `--plan` flag.
 > ```bash
-> copilot --plan "Add a mark as read command to the book app"
+> copilot --plan
 > ```
 
 ```bash
