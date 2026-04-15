@@ -363,16 +363,19 @@ copilot --allow-all -p "Review @myfile.py for issues"
 
 ## Essential Slash Commands
 
-These commands work in interactive mode. **Start with just these six** - they cover 90% of daily use:
+These commands work in interactive mode. **Start with just these seven** - they cover 90% of daily use:
 
 | Command | What It Does | When to Use |
 |---------|--------------|-------------|
+| `/ask` | Ask a quick question without it affecting your conversation history | When you want a quick answer without derailing your current task |
 | `/clear` | Clear conversation and start fresh | When switching topics |
 | `/help` | Show all available commands | When you forget a command |
 | `/model` | Show or switch AI model | When you want to change the AI model |
 | `/plan` | Plan your work out before coding | For more complex features |
 | `/research` | Deep research using GitHub and web sources | When you need to investigate a topic before coding |
 | `/exit` | End the session | When you're done |
+
+> 💡 **`/ask` vs regular chat**: Normally every message you send becomes part of the ongoing conversation and affects future responses. `/ask` is an "off the record" shortcut — perfect for quick one-off questions like `/ask What does YAML mean?` without polluting your session context.
 
 That's it for getting started! As you become comfortable, you can explore additional commands.
 
@@ -388,9 +391,12 @@ That's it for getting started! As you become comfortable, you can explore additi
 | Command | What It Does |
 |---------|--------------|
 | `/agent` | Browse and select from available agents |
+| `/env` | Show loaded environment details — what instructions, MCP servers, skills, agents, and plugins are active |
 | `/init` | Initialize Copilot instructions for your repository |
 | `/mcp` | Manage MCP server configuration |
 | `/skills` | Manage skills for enhanced capabilities |
+
+> 💡 **`/env` tip**: Use `/env` whenever you want to confirm that Copilot has picked up your custom agents, skills, or MCP servers. It's a great first step if something isn't working as expected.
 
 > 💡 Agents are covered in [Chapter 04](../04-agents-custom-instructions/README.md), skills are covered in [Chapter 05](../05-skills/README.md), and MCP servers are covered in [Chapter 06](../06-mcp-servers/README.md).
 
@@ -653,7 +659,7 @@ The examples used `/plan` for a search feature and `-p` for batch reviews. Now t
 1. **Interactive mode** is for exploration and iteration - context carries forward. It's like having a conversation with someone who remembers what you've said up to that point.
 2. **Plan mode** is normally for more involved tasks. Review before implementation.
 3. **Programmatic mode** is for automation. No interaction needed.
-4. **Essential commands** (`/help`, `/clear`, `/plan`, `/research`, `/model`, `/exit`) cover most daily use.
+4. **Essential commands** (`/ask`, `/help`, `/clear`, `/plan`, `/research`, `/model`, `/exit`) cover most daily use.
 
 > 📋 **Quick Reference**: See the [GitHub Copilot CLI command reference](https://docs.github.com/en/copilot/reference/cli-command-reference) for a complete list of commands and shortcuts.
 
