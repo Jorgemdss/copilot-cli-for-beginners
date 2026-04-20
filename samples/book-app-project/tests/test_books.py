@@ -51,3 +51,51 @@ def test_remove_book_invalid():
     collection = BookCollection()
     result = collection.remove_book("Nonexistent Book")
     assert result is False
+
+
+def test_search_title_substr():
+    collection = BookCollection()
+    collection.add_book('The Great Adventure', 'X', 1999)
+    collection.add_book('Small Tale', 'Y', 2001)
+    results = collection.search(title_substr='great')
+    assert len(results) == 1
+    assert results[0].title == 'The Great Adventure'
+
+
+def test_search_author():
+    collection = BookCollection()
+    collection.add_book('Book1', 'Alice', 2010)
+    collection.add_book('Book2', 'Bob', 2011)
+    results = collection.search(author='alice')
+    assert len(results) == 1
+    assert results[0].author == 'Alice'
+
+
+def test_search_year_range():
+    collection = BookCollection()
+    collection.add_book('Old', 'A', 1980)
+    collection.add_book('Mid', 'B', 2000)
+    collection.add_book('New', 'C', 2020)
+    results = collection.search(min_year=1990, max_year=2010)
+    titles = {b.title for b in results}
+    assert titles == {'Mid'}
+
+
+def test_search_read_filter():
+    collection = BookCollection()
+    collection.add_book('R1', 'A', 2000)
+    collection.add_book('R2', 'B', 2001)
+    collection.mark_as_read('R1')
+    read_results = collection.search(read=True)
+    unread_results = collection.search(read=False)
+    assert len(read_results) == 1 and read_results[0].title == 'R1'
+    assert len(unread_results) == 1 and unread_results[0].title == 'R2'
+
+
+def test_search_combined_filters():
+    collection = BookCollection()
+    collection.add_book('Special 2005', 'AuthorX', 2005)
+    collection.add_book('Special 2015', 'AuthorX', 2015)
+    results = collection.search(title_substr='special', author='authorx', min_year=2010)
+    assert len(results) == 1
+    assert results[0].year == 2015

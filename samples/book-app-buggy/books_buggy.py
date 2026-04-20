@@ -32,10 +32,11 @@ class BookCollection:
 
     def save_books(self):
         """Save the current book collection to JSON."""
-        # BUG 2: Doesn't handle file permission errors - crashes silently
-        f = open(DATA_FILE, "w")
-        json.dump([asdict(b) for b in self.books], f, indent=2)
-        # Missing f.close() - file handle leak
+        try:
+            with open(DATA_FILE, "w") as f:
+                json.dump([asdict(b) for b in self.books], f, indent=2)
+        except OSError as e:
+            print(f"Error saving books to {DATA_FILE}: {e}")
 
     def add_book(self, title: str, author: str, year: int) -> Book:
         # BUG 3: Year validation accepts negative numbers and future years
@@ -48,18 +49,18 @@ class BookCollection:
         return self.books
 
     def find_book_by_title(self, title: str) -> Optional[Book]:
-        # BUG 1: Case-sensitive comparison - "the hobbit" won't find "The Hobbit"
+        """Find a book by title (case-insensitive)."""
+        title_norm = title.strip().lower()
         for book in self.books:
-            if book.title == title:
+            if book.title.strip().lower() == title_norm:
                 return book
         return None
 
     def mark_as_read(self, title: str) -> bool:
-        # BUG 5: Marks ALL books as read instead of just the matching one
+        """Mark a single book as read by title."""
         book = self.find_book_by_title(title)
         if book:
-            for b in self.books:
-                b.read = True
+            book.read = True
             self.save_books()
             return True
         return False
